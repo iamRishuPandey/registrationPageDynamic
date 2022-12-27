@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        //assignment 1
+        
+        console.log('person1: shows ticket');
+        console.log('person2: shows ticket');
+
+        const preMovie = async () => {
+
+            const promiseWifeBringingTicks = new Promise((resolve,reject) => {
+            setTimeout(() => {
+                resolve('ticket');
+            }, 3000)
+        });
+
+        const getPopcorn = new Promise((resolve, reject) => resolve(`popcorn`));
+
+        const addButter = new Promise((resolve, reject) => resolve(`butter`));
+
+        const addColdDrinks = new Promise((resolve, reject) => resolve(`coldDrink`));
+
+        let ticket = await promiseWifeBringingTicks;
+
+        console.log(`wife: i have the ${ticket}`);
+        console.log('husband: we should go in');
+        console.log('wife: no i am hungry');
+
+        let popcorn = await getPopcorn;
+
+        console.log(`husband: i got some ${popcorn}`);
+        console.log('husband: we should go in');
+        console.log('wife: i need butter on my popcorn');
+
+        let butter = await addButter;
+
+        console.log(`husband: i got some ${butter} on popcorn`);
+        console.log('husband: we should go in');
+        console.log('wife: no i also want cold drinks');
+
+        let coldDrinks = await addColdDrinks;
+
+        console.log(`husband: i got some ${coldDrinks}`);
+        console.log(`husband: anything else darling?`);
+        console.log(`wife: lets go we are getting late`);
+        console.log(`husband: thank you for the reminder *grins*`);
+
+        return ticket;
+        }
+
+        preMovie().then((m) => console.log(`person3: shows ${m}`));
+        
+        console.log('person4: shows ticket');
+        console.log('person5: shows ticket');
+
+    const posts = [
+
+    {title: 'post 1', body: 'This is post one', createdAt: new Date().getTime()},
+    {title: 'post 2', body: 'This is post two', createdAt: new Date().getTime()}
+    
+];
+
+//  assignment 2
+
+const myfunc = async ()=>{
+
+const displayPosts = (post) => new Promise((resolve,reject) => {
+
+setTimeout(() => {
+
+    let output = '';
+
+posts.forEach((post)=>{
+
+    output += `<li>${post.title}  last updated ${Math.trunc((new Date().getTime() - post.createdAt) / 1000)}  seconds ago </li>`;
+
+})
+
+document.body.innerHTML = output;
+    resolve(document.body.innerHTML);
+}, 1000);
+
+})
+
+
+const createPost = (post) =>
+         new Promise((resolve, reject) => {
+            setTimeout(() => {
+                posts.push({...post, createdAt: new Date().getTime()});
+                const error = false;
+                if(!error) {
+                    resolve();
+                } else {
+                    reject('Error: something went wrong');
+                }
+            }, 1000);
+        });
+
+
+        const  deletePost =() => new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if(posts.length> 0) {
+                    const lastElement = posts.pop()
+                    resolve(lastElement);
+                } else {
+                    reject('Array is empty now');
+                }
+            }, 1000);
+        });
+
+
+await createPost({title: 'post 3', body: 'this is post three'});
+
+await createPost({title: 'post 4', body: 'this is post four'});
+
+displayPosts();
+
+ await deletePost();
+
+ displayPosts();
+
+ await deletePost();
+
+ displayPosts();
+
+ await deletePost();
+
+displayPosts();
+
+ await deletePost();
+
+ displayPosts();
+
+ }
+
+ myfunc().then();
+
+    </script>
+    
+</body>
+</html>
